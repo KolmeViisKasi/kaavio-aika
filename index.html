@@ -1,0 +1,204 @@
+<head>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+
+<style>
+
+.text-top {
+    font-size: 14px;
+    color: grey;
+    font-weight: 200;
+    font-style: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+}
+
+h1 {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 42px;
+    font-weight: 900;
+    font-style: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+}
+
+.text-middle {
+    font-size: 18px;
+    font-weight: 400;
+    font-style: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+}
+
+
+
+
+</style>
+<center><span class='text-top'>PÄIVITETTY 1.5.2020, 22:47</span></center>
+<h1>Kuinka moni <font style='color: #EC2049;'>vastustaa</font> koulujen avaamisesta?</b></h1>
+<center><span class='text-middle'>S&auml;&auml;nn&ouml;llisesti p&auml;ivittyv&auml; laskelma koulujen avaamisesta tehdyn p&auml;&auml;t&ouml;ksen suosiossa suomenkielisiss&auml; twiiteiss&auml;.</span></center>
+
+
+<div id="tester"></div>
+
+<script>
+var xData = [
+  [2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2013],
+  [2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2013],
+];
+
+var yData = [
+  [74, 82, 80, 74, 73, 72, 74, 70, 70, 66, 66, 69],
+  [45, 42, 50, 46, 36, 36, 34, 35, 32, 31, 31, 28]
+];
+
+var colors = ['#EC2049', '#2F9599', '#EC2049',
+  'rgba(189,189,189,1)'
+];
+
+var lineSize = [6, 6, 4, 4];
+
+var labels = ['Vastustaa', 'Tukee', 'Internet', 'Radio'];
+
+var data = [];
+
+for ( var i = 0 ; i < xData.length ; i++ ) {
+  var result = {
+    x: xData[i],
+    y: yData[i],
+    type: 'scatter',
+    mode: 'lines',
+    line: {
+      color: colors[i],
+      width: lineSize[i]
+    }
+  };
+  var result2 = {
+    x: [xData[i][0], xData[i][11]],
+    y: [yData[i][0], yData[i][11]],
+    type: 'scatter',
+    mode: 'markers',
+    marker: {
+      color: colors[i],
+      size: 12
+    }
+  };
+  data.push(result, result2);
+}
+
+var layout = {
+  showlegend: false,
+  height: 600,
+  xaxis: {
+    showline: true,
+    showgrid: true,
+    showticklabels: true,
+    linecolor: 'rgb(204,204,204)',
+    linewidth: 2,
+    autotick: true,
+    ticks: 'outside',
+    tickcolor: 'rgb(204,204,204)',
+    tickwidth: 2,
+    ticklen: 5,
+    tickfont: {
+      family: 'Arial',
+      size: 16,
+      color: 'rgba(82, 82, 82, 0.5)'
+    }
+  },
+  yaxis: {
+    tickwidth: 2,
+    ticklen: 5,
+    autotick: true,
+    ticks: 'outside',
+    tickcolor: 'rgb(204,204,204)',
+    showline: true,
+    showgrid: true,
+    zeroline: true,
+    showline: true,
+    showticklabels: true,
+    tickfont: {
+      family: 'Arial',
+      size: 16,
+      color: 'rgba(82, 82, 82, 0.5)'
+    }
+  },
+  autosize: true,
+  margin: {
+    autoexpand: false,
+    l: 100,
+    r: 100,
+    t: 20
+  },
+  annotations: [
+    {
+      xref: 'paper',
+      yref: 'paper',
+      x: 0.0,
+      y: 1.05,
+      xanchor: 'left',
+      yanchor: 'bottom',
+      text: '',
+      font:{
+        family: 'Arial',
+        size: 30,
+        color: 'rgb(37,37,37)'
+      },
+      showarrow: false
+    },
+    {
+      xref: 'paper',
+      yref: 'paper',
+      x: 0.5,
+      y: -0.1,
+      xanchor: 'center',
+      yanchor: 'top',
+      text: '',
+      showarrow: false,
+      font: {
+        family: 'Arial',
+        size: 12,
+        color: 'rgb(150,150,150)'
+      }
+    }
+  ]
+};
+
+for( var i = 0 ; i < xData.length ; i++ ) {
+  var result = {
+    xref: 'paper',
+    x: 0.05,
+    y: yData[i][0],
+    xanchor: 'right',
+    yanchor: 'middle',
+    text: yData[i][11] +'%',
+    showarrow: false,
+    font: {
+      family: 'Arial',
+      size: 16,
+      color: 'black'
+    }
+  };
+  var result2 = {
+    xref: 'paper',
+    x: 0.95,
+    y: yData[i][11],
+    xanchor: 'left',
+    yanchor: 'middle',
+    
+    text: labels[i] + ' ' + yData[i][0] +'%',
+    font: {
+      family: 'Arial',
+      size: 16,
+      color: 'black'
+    },
+    showarrow: false
+  };
+
+  layout.annotations.push(result, result2);
+}
+
+Plotly.newPlot('tester', data, layout, {displayModeBar: false, responsive: true});
+
+</script>
